@@ -1,0 +1,44 @@
+package com.myapplication
+
+import android.content.Intent
+import android.nfc.Tag
+import android.os.Bundle
+import android.util.Log.d
+import androidx.appcompat.app.AppCompatActivity
+import com.myapplication.Database.Plan
+import com.myapplication.Database.PlanDB
+import kotlinx.android.synthetic.main.activity_add.*
+
+class AddActivity: AppCompatActivity() {
+
+    private var planDB:PlanDB?=null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add)
+
+        planDB = PlanDB.getInstance(this)
+
+        /* 새로운 cat 객체를 생성, id 이외의 값을 지정 후 DB에 추가 */
+        val addRunnable = Runnable {
+            val newPlan = Plan()
+            newPlan.content = addContent.text.toString()
+            newPlan.time = addTime.text.toString().toInt()
+            planDB?.planDao()?.insert(newPlan)
+        }
+
+        addBtn.setOnClickListener {
+            val addThread = Thread(addRunnable)
+            addThread.start()
+
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
+            finish()
+        }
+    }
+    override fun onDestroy() {
+        PlanDB.destroyInstance()
+        super.onDestroy()
+    }
+
+}
