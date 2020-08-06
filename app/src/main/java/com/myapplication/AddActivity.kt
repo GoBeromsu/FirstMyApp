@@ -19,7 +19,7 @@ class AddActivity: AppCompatActivity() {
 
         planDB = PlanDB.getInstance(this)
 
-        /* 새로운 cat 객체를 생성, id 이외의 값을 지정 후 DB에 추가 */
+
         val addRunnable = Runnable {
             val newPlan = Plan()
             newPlan.content = addContent.text.toString()

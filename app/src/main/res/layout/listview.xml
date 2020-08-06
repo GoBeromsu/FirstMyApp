@@ -6,10 +6,9 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,9 +19,9 @@
 
         <TextView
             android:id="@+id/tv_time"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_width="78dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="10"
@@ -33,17 +32,76 @@
 
         <TextView
             android:id="@+id/tv_context"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="2dp"
             android:text="context"
             android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_time"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_reset"
+            android:layout_width="47dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="reset"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bt_modify"
+            app:layout_constraintStart_toEndOf="@+id/bt_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_context" />
+
+        <Button
+            android:id="@+id/bt_modify"
+            android:layout_width="47dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="modify"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bt_delete"
+            app:layout_constraintStart_toEndOf="@+id/bt_reset"
+            app:layout_constraintTop_toBottomOf="@+id/tv_context" />
+
+        <Button
+            android:id="@+id/bt_delete"
+            android:layout_width="47dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="Delete"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bt_modify"
+            app:layout_constraintTop_toBottomOf="@+id/tv_context" />
+
+        <Button
+            android:id="@+id/bt_start"
+            android:layout_width="47dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="start"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bt_reset"
+            app:layout_constraintStart_toEndOf="@+id/tv_time"
+            app:layout_constraintTop_toBottomOf="@+id/tv_context" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
