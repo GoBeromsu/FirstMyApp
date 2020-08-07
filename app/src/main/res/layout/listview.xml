@@ -13,8 +13,10 @@
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
 
         <at.grabner.circleprogress.CircleProgressView
@@ -24,13 +26,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
             CircleProgressView:cpv_autoTextSize="true"
             CircleProgressView:cpv_barColor="#fd0202"
             CircleProgressView:cpv_maxValue="100"
+
             CircleProgressView:cpv_rimColor="#0c52ea"
             CircleProgressView:cpv_seekMode="true"
             CircleProgressView:cpv_showUnit="true"
@@ -39,7 +38,10 @@
             CircleProgressView:cpv_textScale="1"
             CircleProgressView:cpv_unit="%"
             CircleProgressView:cpv_unitPosition="right_top"
-            CircleProgressView:cpv_value="0"/>
+            CircleProgressView:cpv_value="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_context"

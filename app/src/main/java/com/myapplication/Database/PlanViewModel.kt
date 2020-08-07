@@ -16,10 +16,12 @@ class PlanViewModel(application: Application) : AndroidViewModel(application) {
     val allPlan: LiveData<List<Plan>>
 
     init {
-        val wordsDao = PlanDB.getDatabase(application, viewModelScope).planDao()
-        repository = PlanRepository(wordsDao)
+        val planDao = PlanDB.getDatabase(application, viewModelScope).planDao()
+        repository = PlanRepository(planDao)
         allPlan = repository.allPlan
     }
 
     fun insert(plan: Plan) = viewModelScope.launch(Dispatchers.IO) { repository.insert(plan) }
+    fun delete(plan: Plan)= viewModelScope.launch { repository.delete(plan) }
+
 }

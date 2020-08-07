@@ -1,24 +1,20 @@
 package com.myapplication
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myapplication.Database.Plan
 import com.myapplication.Database.PlanAdapter
-import com.myapplication.Database.PlanDB
 import com.myapplication.Database.PlanViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),ButtonClickListener {
 
     private lateinit var planViewModel: PlanViewModel
+    private lateinit var adapter:PlanAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 //        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // 어댑터 정의
-        val adapter = PlanAdapter(this)
+        adapter = PlanAdapter(this,this)
         // 어댑터와 recycler view 연결
         mRecyclerView.adapter = adapter
         // 레이아웃 매니저 설정
@@ -47,7 +43,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun deleteBtnClicked(plan: Plan) {
+        planViewModel.delete(plan)
+    }
 }
 
 
