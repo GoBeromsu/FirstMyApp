@@ -80,23 +80,8 @@
             android:text="modify"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/bt_delete"
-            app:layout_constraintStart_toEndOf="@+id/bt_reset"
-            app:layout_constraintTop_toBottomOf="@+id/tv_context" />
-
-        <Button
-            android:id="@+id/bt_delete"
-            android:layout_width="47dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="Delete"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/bt_modify"
+            app:layout_constraintStart_toEndOf="@+id/bt_reset"
             app:layout_constraintTop_toBottomOf="@+id/tv_context" />
 
         <Button

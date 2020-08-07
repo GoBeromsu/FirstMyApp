@@ -7,9 +7,10 @@ import java.util.*
 
 @Entity(tableName = "plan_table")
 class Plan(
-    @PrimaryKey(autoGenerate = true) var id: Int?,
+    @PrimaryKey(autoGenerate = true) var  id:Int?,
     @ColumnInfo(name = "content") var content: String?,
     @ColumnInfo(name = "time") var time: Int
 ){
-    constructor():this(null,"",0)
+    constructor():this(null,
+        "",0)
 }

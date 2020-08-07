@@ -16,12 +16,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.security.AccessController.getContext
+import java.util.Calendar.getInstance
 
-class PlanAdapter(val context: Context, val plans: List<Plan>) :
+class PlanAdapter(val context: Context) :
     RecyclerView.Adapter<PlanAdapter.Holder>() {
 
-    private var planDB:PlanDB?=null
-
+    private var plans = emptyList<Plan>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.listview, parent, false)
         return Holder(view)
@@ -32,11 +32,10 @@ class PlanAdapter(val context: Context, val plans: List<Plan>) :
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        planDB = PlanDB.getInstance(context)
         val current = plans[position]
-        holder?.bind(plans[position])
+        holder.bind(plans[position])
 
-        holder.start.setOnClickListener{
+        holder.start.setOnClickListener {
             Log.d("Tag", "start button")
             if (holder.timeProgress.currentValue != 0f) {
                 Log.d("Tag", "progress. start button click listener")
@@ -44,21 +43,18 @@ class PlanAdapter(val context: Context, val plans: List<Plan>) :
                 holder.timeProgress.setValueAnimated(100f, current.time.toLong() * 1000)
             }
         }
-        holder.reset.setOnClickListener{
+        holder.reset.setOnClickListener {
             Log.d("Tag", "init button")
             holder.timeProgress.setValue(0f)
         }
-        holder.modify.setOnClickListener{}
-        holder.delete.setOnClickListener{
-            planDB?.planDao()?.delete(current)
-            notifyDataSetChanged()
-            Log.d("Tag", "delete btn")
-        }
-
-
+        holder.modify.setOnClickListener {}
 
     }
 
+    internal fun setPlans(plans:List<Plan>){
+        this.plans=plans
+        notifyDataSetChanged()
+    }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -67,7 +63,6 @@ class PlanAdapter(val context: Context, val plans: List<Plan>) :
         val start = itemView.bt_start
         val reset = itemView.bt_reset
         val modify = itemView.bt_modify
-        val delete = itemView.bt_delete
 
 
         fun bind(plan: Plan) {

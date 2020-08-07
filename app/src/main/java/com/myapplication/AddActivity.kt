@@ -17,28 +17,12 @@ class AddActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
 
-        planDB = PlanDB.getInstance(this)
-
-
-        val addRunnable = Runnable {
-            val newPlan = Plan()
-            newPlan.content = addContent.text.toString()
-            newPlan.time = addTime.text.toString().toInt()
-            planDB?.planDao()?.insert(newPlan)
-        }
-
         addBtn.setOnClickListener {
-            val addThread = Thread(addRunnable)
-            addThread.start()
 
             val i = Intent(this, MainActivity::class.java)
             startActivity(i)
             finish()
         }
-    }
-    override fun onDestroy() {
-        PlanDB.destroyInstance()
-        super.onDestroy()
     }
 
 }
