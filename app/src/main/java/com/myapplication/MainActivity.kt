@@ -1,28 +1,32 @@
 package com.myapplication
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myapplication.AddActivity.Companion.content_REPLY
+import com.myapplication.AddActivity.Companion.time_REPLY
 import com.myapplication.Database.Plan
 import com.myapplication.Database.PlanAdapter
 import com.myapplication.Database.PlanViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),ButtonClickListener {
-
+class MainActivity : AppCompatActivity(), ButtonClickListener {
+    private val AddActivityRequestCode = 1
     private lateinit var planViewModel: PlanViewModel
-    private lateinit var adapter:PlanAdapter
+    private lateinit var adapter: PlanAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         // 어댑터 정의
-        adapter = PlanAdapter(this,this)
+        adapter = PlanAdapter(this, this)
         // 어댑터와 recycler view 연결
         mRecyclerView.adapter = adapter
         // 레이아웃 매니저 설정
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity(),ButtonClickListener {
 
         mAddBtn.setOnClickListener {
             val intent = Intent(this@MainActivity, AddActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,AddActivityRequestCode)
 
         }
     }
@@ -46,6 +50,30 @@ class MainActivity : AppCompatActivity(),ButtonClickListener {
     override fun deleteBtnClicked(plan: Plan) {
         planViewModel.delete(plan)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intentData)
+
+        if (requestCode == AddActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            intentData?.let { data ->
+
+                val content = data.getStringExtra(content_REPLY)!!
+                val time = data.getStringExtra(time_REPLY)!!.toInt()
+
+                val plan = Plan(content,time)
+                planViewModel.insert(plan)
+                Unit
+            }
+        }else{
+            Toast.makeText(
+                applicationContext,
+                "Plan is not saved It is Empty",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
 }
+
 
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Plan::class], version = 1)
+@Database(entities = [Plan::class], version = 2)
 abstract class PlanDB : RoomDatabase() {
     abstract fun planDao(): PlanDao
 
@@ -32,7 +32,7 @@ abstract class PlanDB : RoomDatabase() {
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
-                    .addCallback(PlanDBCallback(scope))
+
                     .build()
                 INSTANCE = instance
                 // return instance
@@ -57,7 +57,7 @@ abstract class PlanDB : RoomDatabase() {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             planDao.deleteAll()
-            var plan = Plan(null,"30초", 30)
+            var plan = Plan("30초", 30)
             planDao.insert(plan)
 
         }
