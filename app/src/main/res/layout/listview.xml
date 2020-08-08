@@ -1,59 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    >
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="395dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
 
         <at.grabner.circleprogress.CircleProgressView
             android:id="@+id/progress"
-            android:layout_width="78dp"
-            android:layout_height="68dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             CircleProgressView:cpv_autoTextSize="true"
-            CircleProgressView:cpv_barColor="#fd0202"
+            CircleProgressView:cpv_barWidth="13dp"
+            CircleProgressView:cpv_rimWidth="16dp"
+            CircleProgressView:cpv_innerContourSize="2dp"
+            CircleProgressView:cpv_outerContourSize="2dp"
             CircleProgressView:cpv_maxValue="100"
-
-            CircleProgressView:cpv_rimColor="#0c52ea"
-            CircleProgressView:cpv_seekMode="true"
-            CircleProgressView:cpv_showUnit="true"
+            CircleProgressView:cpv_innerContourColor="#8BC34A"
+            CircleProgressView:cpv_rimColor="#D4E4C0"
+            CircleProgressView:cpv_barColor="#2D4E05"
             CircleProgressView:cpv_spinColor="#FFFFFf"
             CircleProgressView:cpv_textColor="#000000"
-            CircleProgressView:cpv_textScale="1"
+            CircleProgressView:cpv_seekMode="true"
+            CircleProgressView:cpv_showUnit="true"
+            CircleProgressView:cpv_textScale="0.9"
             CircleProgressView:cpv_unit="%"
-            CircleProgressView:cpv_unitPosition="right_top"
+            CircleProgressView:cpv_unitPosition="right_bottom"
             CircleProgressView:cpv_value="0"
+            CircleProgressView:layout_constraintEnd_toStartOf="@+id/tv_context"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_context"
-            android:layout_width="300dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="2dp"
+            android:layout_width="280dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="4dp"
             android:text="context"
             android:textColor="#000000"
+            android:textSize="18sp"
+            CircleProgressView:layout_constraintStart_toEndOf="@+id/progress"
+            app:layout_constraintBottom_toTopOf="@+id/bt_reset"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_time"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -61,25 +71,21 @@
             android:layout_width="47dp"
             android:layout_height="28dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:text="reset"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/bt_modify"
+            app:layout_constraintEnd_toStartOf="@+id/bt_delete"
             app:layout_constraintStart_toEndOf="@+id/bt_start"
             app:layout_constraintTop_toBottomOf="@+id/tv_context" />
 
         <Button
-            android:id="@+id/bt_modify"
+            android:id="@+id/bt_delete"
             android:layout_width="47dp"
             android:layout_height="28dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="modify"
+            android:text="delete"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,9 +97,7 @@
             android:layout_width="47dp"
             android:layout_height="28dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:text="start"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -103,4 +107,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

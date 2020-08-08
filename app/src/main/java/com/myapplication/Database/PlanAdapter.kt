@@ -4,11 +4,13 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.ButtonClickListener
 import com.myapplication.R
 import kotlinx.android.synthetic.main.listview.view.*
+
 
 class PlanAdapter(val context: Context,listener:ButtonClickListener) :
     RecyclerView.Adapter<PlanAdapter.Holder>() {
@@ -56,11 +58,12 @@ class PlanAdapter(val context: Context,listener:ButtonClickListener) :
         val timeProgress = itemView.progress
         val start = itemView.bt_start
         val reset = itemView.bt_reset
-        val modify = itemView.bt_modify
+        val modify = itemView.bt_delete
 
         fun bind(plan: Plan) {
             content.text = plan.content
 
+            timeProgress.setOnTouchListener(OnTouchListener { v, event -> true })
             modify.setOnClickListener(View.OnClickListener { v: View? ->
                 ButtonClickListener.deleteBtnClicked(plan)
                 notifyDataSetChanged()
