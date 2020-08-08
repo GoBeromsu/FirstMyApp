@@ -23,14 +23,17 @@ class AddActivity : AppCompatActivity() {
         addBtn.setOnClickListener {
 
             val replyIntent = Intent()
-            val plan_time = addTime.text.toString()
-            val plan_content = addContent.text.toString()
+            val plan_time = addTime.text
+            val plan_content = addContent.text
 
-
-            setResult(Activity.RESULT_OK, replyIntent.apply {
-                putExtra(content_REPLY, plan_content)
-                putExtra(time_REPLY, plan_time)
-            })
+            if(TextUtils.isEmpty(plan_content)||TextUtils.isEmpty(plan_time)){
+                setResult(Activity.RESULT_CANCELED,replyIntent)
+            }else{
+                setResult(Activity.RESULT_OK, replyIntent.apply {
+                    putExtra(content_REPLY, plan_content.toString())
+                    putExtra(time_REPLY, plan_time.toString())
+                })
+            }
             finish()
         }
     }
