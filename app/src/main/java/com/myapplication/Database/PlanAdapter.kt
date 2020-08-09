@@ -64,6 +64,7 @@ class PlanAdapter(val context: Context,listener:ButtonClickListener) :
             content.text = plan.content
 
             timeProgress.setOnTouchListener(OnTouchListener { v, event -> true })
+
             modify.setOnClickListener(View.OnClickListener { v: View? ->
                 ButtonClickListener.deleteBtnClicked(plan)
                 notifyDataSetChanged()
