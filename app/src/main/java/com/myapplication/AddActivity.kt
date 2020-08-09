@@ -33,6 +33,9 @@ class AddActivity : AppCompatActivity() {
             setTimePicker()
         }
 
+        addTime.setOnClickListener{
+            setTimePicker()
+        }
         addBtn.setOnClickListener {
 
             val replyIntent = Intent()
