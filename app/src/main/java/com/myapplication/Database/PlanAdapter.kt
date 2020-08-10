@@ -1,6 +1,7 @@
 package com.myapplication.Database
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.DeleteBtnListener
 import com.myapplication.R
 import kotlinx.android.synthetic.main.listview.view.*
-import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
@@ -49,9 +53,20 @@ class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
         val start = itemView.bt_start
         val reset = itemView.bt_reset
         val delete = itemView.bt_delete
+        
+        val player:MediaPlayer= MediaPlayer.create(context,R.raw.arlam)
 
-        val alarm: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val rington : Ringtone = RingtoneManager.getRingtone(context, alarm)
+
+        fun checkProgressEnd() = GlobalScope.launch(Dispatchers.Default){
+            delay(plans[position].time.toLong()*1000)
+            if (timeProgress.currentValue == 100f) {
+                player.start()
+                player.isLooping = false
+            }
+
+        }
+
+
 
         fun bind(plan: Plan) {
             content.text = plan.content
@@ -71,11 +86,14 @@ class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
                     timeProgress.setValueAnimated(100f, plans[position].time.toLong() * 1000)
 
                 }
+
+                checkProgressEnd()
             }
 
             reset.setOnClickListener {
                 Log.d("Tag", "init button")
                 timeProgress.setValue(0f)
+
             }
 
         }
