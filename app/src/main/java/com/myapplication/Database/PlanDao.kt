@@ -20,4 +20,8 @@ interface PlanDao {
 
     @Delete
     suspend fun delete(plan: Plan)
+
+    @Update
+    suspend fun Update(plan: Plan)
+
 }

@@ -16,8 +16,10 @@ import com.myapplication.Database.PlanAdapter
 import com.myapplication.Database.PlanViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ButtonClickListener {
+class MainActivity : AppCompatActivity(), DeleteBtnListener{
     private val AddActivityRequestCode = 1
+
+
     private lateinit var planViewModel: PlanViewModel
     private lateinit var adapter: PlanAdapter
 
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity(), ButtonClickListener {
 
         mAddBtn.setOnClickListener {
             val intent = Intent(this@MainActivity, AddActivity::class.java)
-            startActivityForResult(intent,AddActivityRequestCode)
+            startActivityForResult(intent, AddActivityRequestCode)
 
         }
     }
@@ -60,11 +62,13 @@ class MainActivity : AppCompatActivity(), ButtonClickListener {
                 val content = data.getStringExtra(content_REPLY)!!
                 val time = data.getStringExtra(time_REPLY)!!.toInt()
 
-                val plan = Plan(content,time)
+                val plan = Plan(content, time)
                 planViewModel.insert(plan)
                 Unit
             }
-        }else{
+        }
+        if (requestCode == AddActivityRequestCode && resultCode == Activity.RESULT_OK) {
+        } else {
             Toast.makeText(
                 applicationContext,
                 "Plan is not saved It is Empty",

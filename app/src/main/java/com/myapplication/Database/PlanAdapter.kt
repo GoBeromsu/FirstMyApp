@@ -1,21 +1,26 @@
 package com.myapplication.Database
 
 import android.content.Context
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.myapplication.ButtonClickListener
+import com.myapplication.DeleteBtnListener
 import com.myapplication.R
 import kotlinx.android.synthetic.main.listview.view.*
+import java.util.*
 
 
-class PlanAdapter(val context: Context,listener:ButtonClickListener) :
+class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
     RecyclerView.Adapter<PlanAdapter.Holder>() {
-    private var ButtonClickListener: ButtonClickListener = listener
+    private var DeleteBtnListener: DeleteBtnListener = deletelistener
     private var plans = emptyList<Plan>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.listview, parent, false)
@@ -28,22 +33,7 @@ class PlanAdapter(val context: Context,listener:ButtonClickListener) :
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val current = plans[position]
-        holder.bind(plans[position])
-
-        holder.start.setOnClickListener {
-            Log.d("Tag", "start button")
-            if (holder.timeProgress.currentValue != 0f) {
-                Log.d("Tag", "progress. start button click listener")
-            } else {
-                holder.timeProgress.setValueAnimated(100f, current.time.toLong() * 1000)
-
-            }
-        }
-        holder.reset.setOnClickListener {
-            Log.d("Tag", "init button")
-            holder.timeProgress.setValue(0f)
-        }
-
+        holder.bind(current)
 
     }
 
@@ -58,17 +48,36 @@ class PlanAdapter(val context: Context,listener:ButtonClickListener) :
         val timeProgress = itemView.progress
         val start = itemView.bt_start
         val reset = itemView.bt_reset
-        val modify = itemView.bt_delete
+        val delete = itemView.bt_delete
+
+        val alarm: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        val rington : Ringtone = RingtoneManager.getRingtone(context, alarm)
 
         fun bind(plan: Plan) {
             content.text = plan.content
 
             timeProgress.setOnTouchListener(OnTouchListener { v, event -> true })
 
-            modify.setOnClickListener(View.OnClickListener { v: View? ->
-                ButtonClickListener.deleteBtnClicked(plan)
+            delete.setOnClickListener(View.OnClickListener {
+                DeleteBtnListener.deleteBtnClicked(plan)
                 notifyDataSetChanged()
             })
+
+            start.setOnClickListener {
+                Log.d("Tag", "start button")
+                if (timeProgress.currentValue != 0f) {
+                    Log.d("Tag", "progress. start button click listener")
+                } else {
+                    timeProgress.setValueAnimated(100f, plans[position].time.toLong() * 1000)
+
+                }
+            }
+
+            reset.setOnClickListener {
+                Log.d("Tag", "init button")
+                timeProgress.setValue(0f)
+            }
+
         }
     }
 }
