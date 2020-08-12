@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.DeleteBtnListener
 import com.myapplication.R
 import kotlinx.android.synthetic.main.listview.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
@@ -53,19 +50,19 @@ class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
         val start = itemView.bt_start
         val reset = itemView.bt_reset
         val delete = itemView.bt_delete
-        
-        val player:MediaPlayer= MediaPlayer.create(context,R.raw.arlam)
+
+        val player: MediaPlayer = MediaPlayer.create(context, R.raw.arlam)
 
 
-        fun checkProgressEnd() = GlobalScope.launch(Dispatchers.Default){
-            delay(plans[position].time.toLong()*1000)
-            if (timeProgress.currentValue == 100f) {
+
+        fun checkProgressEnd() = runBlocking<Unit> {
+            val job = GlobalScope.launch(Dispatchers.Default) {
+                delay(plans[position].time.toLong() * 1000)
+                timeProgress.setValue(0f)
                 player.start()
                 player.isLooping = false
             }
-
         }
-
 
 
         fun bind(plan: Plan) {
@@ -84,10 +81,10 @@ class PlanAdapter(val context: Context, deletelistener: DeleteBtnListener) :
                     Log.d("Tag", "progress. start button click listener")
                 } else {
                     timeProgress.setValueAnimated(100f, plans[position].time.toLong() * 1000)
-
+                    checkProgressEnd()
                 }
 
-                checkProgressEnd()
+
             }
 
             reset.setOnClickListener {
