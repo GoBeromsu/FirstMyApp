@@ -1,8 +1,10 @@
 package com.myapplication
 
+import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +18,8 @@ import com.myapplication.Database.PlanAdapter
 import com.myapplication.Database.PlanViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), DeleteBtnListener{
+
+class MainActivity : AppCompatActivity(), DeleteBtnListener {
     private val AddActivityRequestCode = 1
 
 
@@ -27,6 +30,10 @@ class MainActivity : AppCompatActivity(), DeleteBtnListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        supportActionBar?.title = Html.fromHtml("<font color='#ffffff'>The Timer </font>")
+
+
         // 어댑터 정의
         adapter = PlanAdapter(this, this)
         // 어댑터와 recycler view 연결
@@ -48,6 +55,9 @@ class MainActivity : AppCompatActivity(), DeleteBtnListener{
 
         }
     }
+
+
+
 
     override fun deleteBtnClicked(plan: Plan) {
         planViewModel.delete(plan)
@@ -76,6 +86,7 @@ class MainActivity : AppCompatActivity(), DeleteBtnListener{
             ).show()
         }
     }
+
 
 }
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextUtils
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
@@ -24,6 +25,8 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        supportActionBar?.title = Html.fromHtml("<font color='#ffffff'>The Timer </font>")
 
         backBtn.setOnClickListener {
             finish()
